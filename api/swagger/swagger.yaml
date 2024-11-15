@@ -1,0 +1,82 @@
+info:
+  contact: {}
+  title: Ports
+  version: "1.0"
+paths:
+  /api/ports/read:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a value from the specified input port by number
+      parameters:
+      - description: Port number
+        in: query
+        minimum: 1
+        name: number
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            properties:
+              value:
+                type: string
+            type: object
+        "400":
+          description: Invalid port number
+          schema:
+            properties:
+              error:
+                type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            properties:
+              error:
+                type: string
+            type: object
+      summary: Read value from an input port
+      tags:
+      - Input Ports
+  /api/ports/write:
+    post:
+      consumes:
+      - application/json
+      description: Sends a transaction ID to the specified output port by port number
+      parameters:
+      - description: Port number
+        in: query
+        minimum: 1
+        name: port_number
+        required: true
+        type: integer
+      - description: Transaction ID
+        in: query
+        name: transaction_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            properties:
+              message:
+                type: string
+            type: object
+        "400":
+          description: Invalid port number or transaction ID
+          schema:
+            properties:
+              error:
+                type: string
+            type: object
+      summary: Send a transaction ID to an output port
+      tags:
+      - Output Ports
+swagger: "2.0"
